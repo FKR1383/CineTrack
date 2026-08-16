@@ -1,0 +1,22 @@
+CineTrack Simple Model — Build/Static Validation
+
+Architecture checks:
+- No backend directory in this package.
+- No API_BASE_URL/server-IP/certificate-pinning coupling in Flutter source.
+- Direct TMDB API client present at lib/core/api/tmdb_client.dart.
+- Local SQLite database present at lib/core/storage/local_database.dart.
+- No custom Kotlin or Java application source.
+
+Static checks performed in the packaging environment:
+- pubspec.yaml parses as YAML.
+- AndroidManifest.xml parses as XML.
+- network_security_config.xml parses as XML.
+- All relative Dart imports resolve to existing files.
+- Dart delimiter/string/comment structural scan passes.
+- Simple-model architecture verification script passes.
+- No TMDB API credential is embedded in repository files.
+
+Flutter SDK is not installed in the packaging environment, so flutter analyze,
+flutter test, and flutter build apk cannot be executed here. The included
+scripts/build_android.sh runs all three on the developer machine before
+producing the release APK.

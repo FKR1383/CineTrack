@@ -1,0 +1,28 @@
+CineTrack TMDB Advanced - validation summary
+Generated: 2026-08-13
+
+Backend
+- pytest: 12 passed
+- Python compileall: passed
+- OpenAPI: 41 paths, 52 operations, 48 schemas
+- Direct TMDB adapter test covers real v3 request paths and normalization via httpx MockTransport
+- Production provider factory: TMDB only; no demo provider in production path
+
+Flutter
+- 24 Dart source files
+- 6196 Dart lines
+- No custom Kotlin/Java source in mobile Android project
+- Relative source structure and Android manifest validated statically
+- Flutter SDK was not available in the packaging environment, so flutter analyze/test/build must be run on the development machine. The prior project revision had been analyzer-clean except two non-blocking Flutter RadioGroup deprecation infos; this release should be rechecked with flutter analyze after flutter pub get.
+
+Security / packaging
+- No real TMDB API token/key embedded
+- No .env production file embedded
+- No TLS private keys embedded
+- No Android keystore embedded
+- No test database/cache artifacts included
+
+Deployment acceptance
+- scripts/check_tmdb_live.py performs a real search against configured TMDB credentials and exits nonzero on failure
+- scripts/prewarm_posters.py warms optimized server-side poster cache
+- scripts/update_native_backend.sh migrates and updates the existing native systemd deployment
