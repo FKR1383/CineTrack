@@ -1,0 +1,4783 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CineTrack Advanced API",
+    "description": "CineTrack advanced-model API. The Flutter client talks only to this backend. Movie/TV discovery, details, cast/crew, seasons and episodes are fetched from TMDB, normalized and cached server-side. The API also provides PostgreSQL-backed users, JWT sessions, watch state/progress, ratings, spoiler-aware comments, favorites, personal lists, statistics, reports and role-based administration.",
+    "contact": {
+      "name": "CineTrack Project Team"
+    },
+    "license": {
+      "name": "Educational non-commercial project"
+    },
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_register_api_v1_auth_register_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register-json": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Register Json",
+        "operationId": "register_json_api_v1_auth_register_json_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Refresh",
+        "operationId": "refresh_api_v1_auth_refresh_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/forgot": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Forgot Password",
+        "operationId": "forgot_password_api_v1_auth_password_forgot_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Forgot Password Api V1 Auth Password Forgot Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/reset": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Reset Password",
+        "operationId": "reset_password_api_v1_auth_password_reset_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Profile",
+        "operationId": "get_profile_api_v1_users_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Patch Profile",
+        "operationId": "patch_profile_api_v1_users_me_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/avatar": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Upload Avatar",
+        "operationId": "upload_avatar_api_v1_users_me_avatar_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_avatar_api_v1_users_me_avatar_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete Avatar",
+        "operationId": "delete_avatar_api_v1_users_me_avatar_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/stats": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Stats",
+        "operationId": "get_stats_api_v1_users_me_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserStatsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/activity": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Activity",
+        "operationId": "get_activity_api_v1_users_me_activity_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/media/provider-status": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Provider Status",
+        "operationId": "provider_status_api_v1_media_provider_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Provider Status Api V1 Media Provider Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/media/home": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Home",
+        "operationId": "home_api_v1_media_home_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeSectionsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/media/search": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Search",
+        "operationId": "search_api_v1_media_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "media_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(movie|series)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Media Type"
+            }
+          },
+          {
+            "name": "actor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 120
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Actor"
+            }
+          },
+          {
+            "name": "director",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 120
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Director"
+            }
+          },
+          {
+            "name": "genre",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Genre"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 2200,
+                  "minimum": 1870
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_MediaSummary_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/media/{media_id}/poster": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Poster",
+        "operationId": "poster_api_v1_media__media_id__poster_get",
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/media/{media_id}": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Details",
+        "operationId": "details_api_v1_media__media_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/media/{media_id}/seasons": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Seasons",
+        "operationId": "seasons_api_v1_media__media_id__seasons_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SeasonResponse"
+                  },
+                  "title": "Response Seasons Api V1 Media  Media Id  Seasons Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/media/{media_id}/comments": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Comments",
+        "operationId": "comments_api_v1_media__media_id__comments_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_CommentResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Add Comment",
+        "operationId": "add_comment_api_v1_media__media_id__comments_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comments/{comment_id}": {
+      "patch": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Edit Comment",
+        "operationId": "edit_comment_api_v1_comments__comment_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Remove Comment",
+        "operationId": "remove_comment_api_v1_comments__comment_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comment Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comments/{comment_id}/reports": {
+      "post": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Report Comment",
+        "operationId": "report_comment_api_v1_comments__comment_id__reports_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Report Comment Api V1 Comments  Comment Id  Reports Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/library": {
+      "get": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Library",
+        "operationId": "library_api_v1_me_library_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "watch_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(plan_to_watch|watching|completed|paused|dropped|favorite)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Watch Status"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_LibraryEntry_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/library/{media_id}": {
+      "put": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Update Library",
+        "operationId": "update_library_api_v1_me_library__media_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WatchStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMediaState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Delete Library",
+        "operationId": "delete_library_api_v1_me_library__media_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/favorites/{media_id}": {
+      "put": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Favorite",
+        "operationId": "favorite_api_v1_me_favorites__media_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Unfavorite",
+        "operationId": "unfavorite_api_v1_me_favorites__media_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/ratings/{media_id}": {
+      "put": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Rate",
+        "operationId": "rate_api_v1_me_ratings__media_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RatingDistribution"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Unrate",
+        "operationId": "unrate_api_v1_me_ratings__media_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/episodes/{episode_id}": {
+      "put": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Mark Episode",
+        "operationId": "mark_episode_api_v1_me_episodes__episode_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "episode_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Episode Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EpisodeWatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/series/{media_id}/progress": {
+      "get": {
+        "tags": [
+          "Personal library"
+        ],
+        "summary": "Progress",
+        "operationId": "progress_api_v1_me_series__media_id__progress_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/lists": {
+      "get": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Get Lists",
+        "operationId": "get_lists_api_v1_me_lists_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CustomListSummary"
+                  },
+                  "type": "array",
+                  "title": "Response Get Lists Api V1 Me Lists Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Create List",
+        "operationId": "create_list_api_v1_me_lists_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomListCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomListSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/lists/{list_id}": {
+      "get": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Get List",
+        "operationId": "get_list_api_v1_me_lists__list_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "List Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomListDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Patch List",
+        "operationId": "patch_list_api_v1_me_lists__list_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "List Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomListUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomListSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Remove List",
+        "operationId": "remove_list_api_v1_me_lists__list_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "List Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/lists/{list_id}/items": {
+      "post": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Add List Item",
+        "operationId": "add_list_item_api_v1_me_lists__list_id__items_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "List Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListItemAddRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/lists/{list_id}/items/{media_id}": {
+      "delete": {
+        "tags": [
+          "Custom lists"
+        ],
+        "summary": "Remove List Item",
+        "operationId": "remove_list_item_api_v1_me_lists__list_id__items__media_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "list_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "List Id"
+            }
+          },
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/stats": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Stats",
+        "operationId": "stats_api_v1_admin_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminStatsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Users",
+        "operationId": "users_api_v1_admin_users_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 120
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_UserResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users/{user_id}": {
+      "patch": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Update User",
+        "operationId": "update_user_api_v1_admin_users__user_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUserUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/reports": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Reports",
+        "operationId": "reports_api_v1_admin_reports_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminReportResponse"
+                  },
+                  "title": "Response Reports Api V1 Admin Reports Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/reports/{report_id}": {
+      "patch": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Resolve Report",
+        "operationId": "resolve_report_api_v1_admin_reports__report_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportResolveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/comments/{comment_id}": {
+      "delete": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Delete Inappropriate Comment",
+        "operationId": "delete_inappropriate_comment_api_v1_admin_comments__comment_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/media": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Cached Media",
+        "operationId": "cached_media_api_v1_admin_media_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(movie|series)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Media Type"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MediaSummary"
+                  },
+                  "title": "Response Cached Media Api V1 Admin Media Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/media/{media_id}": {
+      "patch": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Update Cached Media",
+        "operationId": "update_cached_media_api_v1_admin_media__media_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminMediaUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Delete Cached Media",
+        "operationId": "delete_cached_media_api_v1_admin_media__media_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/media/{media_id}/refresh": {
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Refresh Cached Media",
+        "operationId": "refresh_cached_media_api_v1_admin_media__media_id__refresh_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "media_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Media Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Ready Ready Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ActivityItem": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "media_id": {
+            "type": "string",
+            "title": "Media Id"
+          },
+          "media_title": {
+            "type": "string",
+            "title": "Media Title"
+          },
+          "media_type": {
+            "type": "string",
+            "title": "Media Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "media_id",
+          "media_title",
+          "media_type",
+          "occurred_at"
+        ],
+        "title": "ActivityItem"
+      },
+      "ActivityResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ActivityItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "ActivityResponse"
+      },
+      "AdminMediaUpdateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "original_title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Title"
+          },
+          "plot": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plot"
+          },
+          "poster_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Poster Url"
+          },
+          "genres": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Genres"
+          },
+          "release_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Status"
+          }
+        },
+        "type": "object",
+        "title": "AdminMediaUpdateRequest"
+      },
+      "AdminReportResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "reporter_username": {
+            "type": "string",
+            "title": "Reporter Username"
+          },
+          "comment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment Id"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "resolution_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolution Note"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "reporter_username",
+          "comment_id",
+          "reason",
+          "status",
+          "resolution_note",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "AdminReportResponse"
+      },
+      "AdminStatsResponse": {
+        "properties": {
+          "users_total": {
+            "type": "integer",
+            "title": "Users Total"
+          },
+          "users_active": {
+            "type": "integer",
+            "title": "Users Active"
+          },
+          "media_total": {
+            "type": "integer",
+            "title": "Media Total"
+          },
+          "movies_total": {
+            "type": "integer",
+            "title": "Movies Total"
+          },
+          "series_total": {
+            "type": "integer",
+            "title": "Series Total"
+          },
+          "comments_total": {
+            "type": "integer",
+            "title": "Comments Total"
+          },
+          "open_reports": {
+            "type": "integer",
+            "title": "Open Reports"
+          },
+          "ratings_total": {
+            "type": "integer",
+            "title": "Ratings Total"
+          },
+          "favorites_total": {
+            "type": "integer",
+            "title": "Favorites Total"
+          },
+          "watched_entries_total": {
+            "type": "integer",
+            "title": "Watched Entries Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "users_total",
+          "users_active",
+          "media_total",
+          "movies_total",
+          "series_total",
+          "comments_total",
+          "open_reports",
+          "ratings_total",
+          "favorites_total",
+          "watched_entries_total"
+        ],
+        "title": "AdminStatsResponse"
+      },
+      "AdminUserUpdateRequest": {
+        "properties": {
+          "role": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(user|admin)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          },
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Active"
+          }
+        },
+        "type": "object",
+        "title": "AdminUserUpdateRequest"
+      },
+      "Body_register_api_v1_auth_register_post": {
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "First Name"
+          },
+          "last_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Last Name"
+          },
+          "username": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 3,
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          },
+          "profile_image": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "binary"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Image"
+          }
+        },
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "username",
+          "email",
+          "password"
+        ],
+        "title": "Body_register_api_v1_auth_register_post"
+      },
+      "Body_upload_avatar_api_v1_users_me_avatar_post": {
+        "properties": {
+          "profile_image": {
+            "type": "string",
+            "format": "binary",
+            "title": "Profile Image"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_image"
+        ],
+        "title": "Body_upload_avatar_api_v1_users_me_avatar_post"
+      },
+      "CommentCreateRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "is_spoiler": {
+            "type": "boolean",
+            "title": "Is Spoiler",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "CommentCreateRequest"
+      },
+      "CommentResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "user_avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Avatar Url"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "is_spoiler": {
+            "type": "boolean",
+            "title": "Is Spoiler"
+          },
+          "is_hidden": {
+            "type": "boolean",
+            "title": "Is Hidden"
+          },
+          "own_comment": {
+            "type": "boolean",
+            "title": "Own Comment",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "username",
+          "user_avatar_url",
+          "created_at",
+          "updated_at",
+          "is_spoiler",
+          "is_hidden"
+        ],
+        "title": "CommentResponse"
+      },
+      "CommentUpdateRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "is_spoiler": {
+            "type": "boolean",
+            "title": "Is Spoiler",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "CommentUpdateRequest"
+      },
+      "CustomListCreateRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "is_public": {
+            "type": "boolean",
+            "title": "Is Public",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "CustomListCreateRequest"
+      },
+      "CustomListDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "is_public": {
+            "type": "boolean",
+            "title": "Is Public"
+          },
+          "item_count": {
+            "type": "integer",
+            "title": "Item Count"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "is_public",
+          "item_count",
+          "created_at",
+          "updated_at",
+          "items"
+        ],
+        "title": "CustomListDetail"
+      },
+      "CustomListSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "is_public": {
+            "type": "boolean",
+            "title": "Is Public"
+          },
+          "item_count": {
+            "type": "integer",
+            "title": "Item Count"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "is_public",
+          "item_count",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CustomListSummary"
+      },
+      "CustomListUpdateRequest": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "is_public": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Public"
+          }
+        },
+        "type": "object",
+        "title": "CustomListUpdateRequest"
+      },
+      "EpisodeResponse": {
+        "properties": {
+          "episode_id": {
+            "type": "string",
+            "title": "Episode Id"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "default": "tmdb"
+          },
+          "tmdb_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tmdb Id"
+          },
+          "imdb_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imdb Id"
+          },
+          "season_number": {
+            "type": "integer",
+            "title": "Season Number"
+          },
+          "episode_number": {
+            "type": "integer",
+            "title": "Episode Number"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "release_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Date"
+          },
+          "runtime_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Runtime Minutes"
+          },
+          "plot": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plot"
+          },
+          "watched": {
+            "type": "boolean",
+            "title": "Watched",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "episode_id",
+          "season_number",
+          "episode_number",
+          "title",
+          "release_date",
+          "runtime_minutes",
+          "plot"
+        ],
+        "title": "EpisodeResponse"
+      },
+      "EpisodeWatchRequest": {
+        "properties": {
+          "watched": {
+            "type": "boolean",
+            "title": "Watched",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "EpisodeWatchRequest"
+      },
+      "ForgotPasswordRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "ForgotPasswordRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HomeSectionsResponse": {
+        "properties": {
+          "popular_movies": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "Popular Movies"
+          },
+          "popular_series": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "Popular Series"
+          },
+          "new_releases": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "New Releases"
+          },
+          "top_rated": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "Top Rated"
+          },
+          "recommendations": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "Recommendations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "popular_movies",
+          "popular_series",
+          "new_releases",
+          "top_rated",
+          "recommendations"
+        ],
+        "title": "HomeSectionsResponse"
+      },
+      "LibraryEntry": {
+        "properties": {
+          "media": {
+            "$ref": "#/components/schemas/MediaSummary"
+          },
+          "watch_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Watch Status"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProgressResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media",
+          "watch_status",
+          "is_favorite",
+          "progress",
+          "updated_at"
+        ],
+        "title": "LibraryEntry"
+      },
+      "ListItemAddRequest": {
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 3,
+            "title": "Media Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media_id"
+        ],
+        "title": "ListItemAddRequest"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          },
+          "remember_me": {
+            "type": "boolean",
+            "title": "Remember Me",
+            "default": true
+          },
+          "device_info": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Info"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "LogoutRequest": {
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "title": "LogoutRequest"
+      },
+      "MediaDetail": {
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "title": "Media Id"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "default": "tmdb"
+          },
+          "tmdb_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tmdb Id"
+          },
+          "imdb_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imdb Id"
+          },
+          "media_type": {
+            "type": "string",
+            "title": "Media Type"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "original_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Title"
+          },
+          "poster_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Poster Url"
+          },
+          "plot": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plot"
+          },
+          "genres": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Genres"
+          },
+          "release_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Year"
+          },
+          "end_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Year"
+          },
+          "provider_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Rating"
+          },
+          "app_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "App Rating"
+          },
+          "rating_count": {
+            "type": "integer",
+            "title": "Rating Count",
+            "default": 0
+          },
+          "release_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Status"
+          },
+          "season_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Season Count"
+          },
+          "episode_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Episode Count"
+          },
+          "release_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Date"
+          },
+          "runtime_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Runtime Minutes"
+          },
+          "countries": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Countries"
+          },
+          "directors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Directors"
+          },
+          "cast": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cast"
+          },
+          "provider_vote_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Vote Count"
+          },
+          "rating_distribution": {
+            "$ref": "#/components/schemas/RatingDistribution"
+          },
+          "user_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UserMediaState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cached_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cached At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media_id",
+          "media_type",
+          "title",
+          "rating_distribution"
+        ],
+        "title": "MediaDetail"
+      },
+      "MediaSummary": {
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "title": "Media Id"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "default": "tmdb"
+          },
+          "tmdb_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tmdb Id"
+          },
+          "imdb_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imdb Id"
+          },
+          "media_type": {
+            "type": "string",
+            "title": "Media Type"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "original_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Title"
+          },
+          "poster_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Poster Url"
+          },
+          "plot": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plot"
+          },
+          "genres": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Genres"
+          },
+          "release_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Year"
+          },
+          "end_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Year"
+          },
+          "provider_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Rating"
+          },
+          "app_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "App Rating"
+          },
+          "rating_count": {
+            "type": "integer",
+            "title": "Rating Count",
+            "default": 0
+          },
+          "release_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Status"
+          },
+          "season_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Season Count"
+          },
+          "episode_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Episode Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media_id",
+          "media_type",
+          "title"
+        ],
+        "title": "MediaSummary"
+      },
+      "MessageResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "MessageResponse"
+      },
+      "PaginatedResponse_CommentResponse_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CommentResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "pagination"
+        ],
+        "title": "PaginatedResponse[CommentResponse]"
+      },
+      "PaginatedResponse_LibraryEntry_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/LibraryEntry"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "pagination"
+        ],
+        "title": "PaginatedResponse[LibraryEntry]"
+      },
+      "PaginatedResponse_MediaSummary_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MediaSummary"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "pagination"
+        ],
+        "title": "PaginatedResponse[MediaSummary]"
+      },
+      "PaginatedResponse_UserResponse_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/UserResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "pagination"
+        ],
+        "title": "PaginatedResponse[UserResponse]"
+      },
+      "PaginationMeta": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page Size"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
+          },
+          "total_pages": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Pages"
+          },
+          "has_next": {
+            "type": "boolean",
+            "title": "Has Next"
+          },
+          "has_previous": {
+            "type": "boolean",
+            "title": "Has Previous"
+          }
+        },
+        "type": "object",
+        "required": [
+          "page",
+          "page_size",
+          "total",
+          "total_pages",
+          "has_next",
+          "has_previous"
+        ],
+        "title": "PaginationMeta"
+      },
+      "ProfileUpdateRequest": {
+        "properties": {
+          "first_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Name"
+          },
+          "last_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Name"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40,
+                "minLength": 3,
+                "pattern": "^[A-Za-z0-9_.-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "email"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          }
+        },
+        "type": "object",
+        "title": "ProfileUpdateRequest"
+      },
+      "ProgressResponse": {
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "title": "Media Id"
+          },
+          "watched_episodes": {
+            "type": "integer",
+            "title": "Watched Episodes"
+          },
+          "total_episodes": {
+            "type": "integer",
+            "title": "Total Episodes"
+          },
+          "remaining_episodes": {
+            "type": "integer",
+            "title": "Remaining Episodes"
+          },
+          "progress_percent": {
+            "type": "number",
+            "title": "Progress Percent"
+          },
+          "progress_color": {
+            "type": "string",
+            "title": "Progress Color"
+          },
+          "progress_hex": {
+            "type": "string",
+            "title": "Progress Hex"
+          },
+          "release_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media_id",
+          "watched_episodes",
+          "total_episodes",
+          "remaining_episodes",
+          "progress_percent",
+          "progress_color",
+          "progress_hex",
+          "release_status"
+        ],
+        "title": "ProgressResponse"
+      },
+      "RatingDistribution": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "percentages": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Percentages"
+          },
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Counts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "percentages",
+          "counts"
+        ],
+        "title": "RatingDistribution"
+      },
+      "RatingRequest": {
+        "properties": {
+          "score": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score"
+        ],
+        "title": "RatingRequest"
+      },
+      "RefreshRequest": {
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          },
+          "device_info": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Info"
+          }
+        },
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "title": "RefreshRequest"
+      },
+      "RegisterRequest": {
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "First Name"
+          },
+          "last_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Last Name"
+          },
+          "username": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 3,
+            "pattern": "^[A-Za-z0-9_.-]+$",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          }
+        },
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "username",
+          "email",
+          "password"
+        ],
+        "title": "RegisterRequest"
+      },
+      "ReportCreateRequest": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ReportCreateRequest"
+      },
+      "ReportResolveRequest": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "pattern": "^(open|reviewed|resolved|dismissed)$",
+            "title": "Status"
+          },
+          "resolution_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolution Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "ReportResolveRequest"
+      },
+      "ResetPasswordRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 20,
+            "title": "Token"
+          },
+          "new_password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "New Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "new_password"
+        ],
+        "title": "ResetPasswordRequest"
+      },
+      "SeasonResponse": {
+        "properties": {
+          "season_number": {
+            "type": "integer",
+            "title": "Season Number"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "episode_count": {
+            "type": "integer",
+            "title": "Episode Count"
+          },
+          "episodes": {
+            "items": {
+              "$ref": "#/components/schemas/EpisodeResponse"
+            },
+            "type": "array",
+            "title": "Episodes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "season_number",
+          "title",
+          "episode_count"
+        ],
+        "title": "SeasonResponse"
+      },
+      "TokenResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "access_token_expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Access Token Expires At"
+          },
+          "refresh_token_expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Refresh Token Expires At"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "refresh_token",
+          "access_token_expires_at",
+          "refresh_token_expires_at",
+          "user"
+        ],
+        "title": "TokenResponse"
+      },
+      "UserMediaState": {
+        "properties": {
+          "watch_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Watch Status"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite",
+            "default": false
+          },
+          "user_rating": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Rating"
+          },
+          "watched_episodes": {
+            "type": "integer",
+            "title": "Watched Episodes",
+            "default": 0
+          },
+          "remaining_episodes": {
+            "type": "integer",
+            "title": "Remaining Episodes",
+            "default": 0
+          },
+          "progress_percent": {
+            "type": "number",
+            "title": "Progress Percent",
+            "default": 0
+          },
+          "progress_color": {
+            "type": "string",
+            "title": "Progress Color",
+            "default": "black"
+          },
+          "progress_hex": {
+            "type": "string",
+            "title": "Progress Hex",
+            "default": "#212121"
+          }
+        },
+        "type": "object",
+        "title": "UserMediaState"
+      },
+      "UserResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "first_name": {
+            "type": "string",
+            "title": "First Name"
+          },
+          "last_name": {
+            "type": "string",
+            "title": "Last Name"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "username",
+          "email",
+          "avatar_url",
+          "bio",
+          "role",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UserResponse"
+      },
+      "UserStatsResponse": {
+        "properties": {
+          "watched_movies": {
+            "type": "integer",
+            "title": "Watched Movies"
+          },
+          "watched_series": {
+            "type": "integer",
+            "title": "Watched Series"
+          },
+          "watched_episodes": {
+            "type": "integer",
+            "title": "Watched Episodes"
+          },
+          "approximate_watch_minutes": {
+            "type": "integer",
+            "title": "Approximate Watch Minutes"
+          },
+          "approximate_watch_hours": {
+            "type": "number",
+            "title": "Approximate Watch Hours"
+          },
+          "favorite_genre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Favorite Genre"
+          },
+          "average_user_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Average User Rating"
+          },
+          "favorites_count": {
+            "type": "integer",
+            "title": "Favorites Count"
+          },
+          "custom_lists_count": {
+            "type": "integer",
+            "title": "Custom Lists Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "watched_movies",
+          "watched_series",
+          "watched_episodes",
+          "approximate_watch_minutes",
+          "approximate_watch_hours",
+          "favorite_genre",
+          "average_user_rating",
+          "favorites_count",
+          "custom_lists_count"
+        ],
+        "title": "UserStatsResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WatchStatusRequest": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "WatchStatusRequest"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
